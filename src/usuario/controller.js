@@ -35,8 +35,18 @@ const addUsuario = (req, res) => {
     });
 };
 
+const deleteUsuario = (req, res) => {
+    const id_usuario = parseInt(req.params.id_usuario);
+
+    pool.query(queries.deleteUsuario, [id_usuario], (error, results) => {
+        if (error) throw error;
+        res.status(200).send("El usuario ha sido eliminado.");
+    });
+};
+
 module.exports = {
     getUsuarios,
     getUsuarioById,
     addUsuario,
+    deleteUsuario,
 };

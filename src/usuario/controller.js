@@ -51,9 +51,45 @@ const deleteUsuario = (req, res) => {
     });
 };
 
+const updateUsuario = (req, res) => {
+    const id_usuario = parseInt(req.params.id_usuario);
+    const { nombre_usuario, direccion_usuario, path_doc, telefono_usuario } = req.body;
+
+    pool.query(queries.getUsuarioById, [id_usuario], (error, results) => {
+        const notFoundUsuario = !results.rows.length;
+        if (notFoundUsuario) {
+            res.send("El usuario no existe en la BD.");
+        }
+
+        pool.query(queries.updateUsuario, [nombre_usuario, direccion_usuario, path_doc, telefono_usuario, id_usuario], (error, results) => {
+            if (error) throw error;
+            res.status(200).send("Se han actualizado los datos del usuario.");
+        });
+    });
+};
+
+const updatePasswordUsuario = (req, res) => {
+    const id_usuario = parseInt(req.params.id_usuario);
+    const { password_usuario } = req.body;
+
+    pool.query(queries.getUsuarioById, [id_usuario], (error, results) => {
+        const notFoundUsuario = !results.rows.length;
+        if (notFoundUsuario) {
+            res.send("El usuario no existe en la BD.");
+        }
+
+        pool.query(queries.updatePasswordUsuario, [password_usuario, id_usuario], (error, results) => {
+            if (error) throw error;
+            res.status(200).send("Se ha actualizado la contraseña del usuario.");
+        });
+    });
+}
+
 module.exports = {
     getUsuarios,
     getUsuarioById,
     addUsuario,
     deleteUsuario,
+    updateUsuario,
+    updatePasswordUsuario,
 };

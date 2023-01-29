@@ -38,9 +38,16 @@ const addUsuario = (req, res) => {
 const deleteUsuario = (req, res) => {
     const id_usuario = parseInt(req.params.id_usuario);
 
-    pool.query(queries.deleteUsuario, [id_usuario], (error, results) => {
-        if (error) throw error;
-        res.status(200).send("El usuario ha sido eliminado.");
+    pool.query(queries.getUsuarioById, [id_usuario], (error, results) => {
+        const notFoundUsuario = !results.rows.length;
+        if (notFoundUsuario) {
+            res.send("El usuario no existe en la BD.");
+        }
+
+        pool.query(queries.deleteUsuario, [id_usuario], (error, results) => {
+            if (error) throw error;
+            res.status(200).send("El usuario se ha eliminado.");
+        });
     });
 };
 

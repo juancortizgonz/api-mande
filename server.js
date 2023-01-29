@@ -2,6 +2,7 @@ const express = require('express');
 const usuarioRoutes = require('./src/usuario/routes');
 const clienteRoutes = require('./src/cliente/routes');
 const trabajadorRoutes = require('./src/trabajador/routes');
+const laborRoutes = require('./src/labor/routes');
 
 const app = express();
 const port = 3001;
@@ -16,6 +17,7 @@ app.get("/", (req, res) => {
 app.use('/api/v1/usuarios', usuarioRoutes);
 app.use('/api/v1/clientes', clienteRoutes);
 app.use('/api/v1/trabajadores', trabajadorRoutes);
+app.use('/api/v1/labores', laborRoutes);
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`)

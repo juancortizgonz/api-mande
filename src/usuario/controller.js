@@ -21,6 +21,8 @@ const getUsuarioById = (req, res) => {
 const addUsuario = (req, res) => {
     const { nombre_usuario, email_usuario, password_usuario, direccion_usuario, path_doc, telefono_usuario } = req.body;
 
+    res.header("Access-Control-Allow-Origin", "*");
+
     // Revisar si el correo ya existe
     pool.query(queries.checkEmailExists, [email_usuario], (error, results) => {
         if (results.rows.length) {

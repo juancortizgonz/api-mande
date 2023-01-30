@@ -4,11 +4,12 @@ const clienteRoutes = require('./src/cliente/routes');
 const trabajadorRoutes = require('./src/trabajador/routes');
 const laborRoutes = require('./src/labor/routes');
 const tarifaRoutes = require('./src/tarifa/routes');
+const cors = require('cors');
 
 const app = express();
 const port = 3001;
 
-
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {

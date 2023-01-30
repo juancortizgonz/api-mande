@@ -1,0 +1,8 @@
+{
+    "nombre_usuario": "ABC",
+    "email_usuario": "CDE",
+    "password_usuario": "test",
+    "direccion_usuario": "cra",
+    "path_doc": "imagen.png",
+    "telefono_usuario": "323"
+}

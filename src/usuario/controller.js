@@ -19,18 +19,18 @@ const getUsuarioById = (req, res) => {
 };
 
 const addUsuario = (req, res) => {
-    const { nombre_usuario, email_usuario, password_usuario, direccion_usuario, path_doc, telefono_usuario } = req.body;
+    const { nombre, email, telefono, psw } = req.body;
 
     res.header("Access-Control-Allow-Origin", "*");
 
     // Revisar si el correo ya existe
-    pool.query(queries.checkEmailExists, [email_usuario], (error, results) => {
+    pool.query(queries.checkEmailExists, [email], (error, results) => {
         if (results.rows.length) {
             res.send("El email ya se encuentra registrado.");
         }
 
         // Agregar el usuario a la BD
-        pool.query(queries.addUsuario, [nombre_usuario, email_usuario, password_usuario, direccion_usuario, path_doc, telefono_usuario], (error, results) => {
+        pool.query(queries.addUsuario, [nombre, email, telefono, psw], (error, results) => {
             if (error) throw error;
             res.status(201).send(`Nuevo usuario creado.`);
         });
@@ -55,7 +55,7 @@ const deleteUsuario = (req, res) => {
 
 const updateUsuario = (req, res) => {
     const id_usuario = parseInt(req.params.id_usuario);
-    const { nombre_usuario, direccion_usuario, path_doc, telefono_usuario } = req.body;
+    const { nombre, email, telefono } = req.body;
 
     pool.query(queries.getUsuarioById, [id_usuario], (error, results) => {
         const notFoundUsuario = !results.rows.length;
@@ -63,7 +63,7 @@ const updateUsuario = (req, res) => {
             res.send("El usuario no existe en la BD.");
         }
 
-        pool.query(queries.updateUsuario, [nombre_usuario, direccion_usuario, path_doc, telefono_usuario, id_usuario], (error, results) => {
+        pool.query(queries.updateUsuario, [nombre, email, telefono, id_usuario], (error, results) => {
             if (error) throw error;
             res.status(200).send("Se han actualizado los datos del usuario.");
         });
@@ -72,7 +72,7 @@ const updateUsuario = (req, res) => {
 
 const updatePasswordUsuario = (req, res) => {
     const id_usuario = parseInt(req.params.id_usuario);
-    const { password_usuario } = req.body;
+    const { psw } = req.body;
 
     pool.query(queries.getUsuarioById, [id_usuario], (error, results) => {
         const notFoundUsuario = !results.rows.length;
@@ -80,7 +80,7 @@ const updatePasswordUsuario = (req, res) => {
             res.send("El usuario no existe en la BD.");
         }
 
-        pool.query(queries.updatePasswordUsuario, [password_usuario, id_usuario], (error, results) => {
+        pool.query(queries.updatePasswordUsuario, [psw, id_usuario], (error, results) => {
             if (error) throw error;
             res.status(200).send("Se ha actualizado la contraseña del usuario.");
         });

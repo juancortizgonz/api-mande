@@ -5,6 +5,7 @@ const tarifaRoutes = require('./src/tarifa/routes');
 const servicioRoutes = require('./src/servicio/routes');
 const trabajadorRoutes = require('./src/trabajador/routes');
 const clienteRoutes = require('./src/cliente/routes');
+const paymentRoutes = require('./src/metodoPago/routes');
 const cors = require('cors');
 
 const app = express();
@@ -20,6 +21,7 @@ app.get("/", (req, res) => {
 app.use('/api/v1/usuarios', usuarioRoutes);
 app.use('/api/v1/trabajadores', trabajadorRoutes);
 app.use('/api/v1/clientes', clienteRoutes);
+app.use('/api/v1/pagos', paymentRoutes);
 app.use('/api/v1/labores', laborRoutes);
 app.use('/api/v1/tarifas', tarifaRoutes);
 app.use('/api/v1/servicios', servicioRoutes);

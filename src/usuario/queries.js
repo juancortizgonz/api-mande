@@ -4,7 +4,6 @@ const checkEmailExists = 'SELECT u FROM "Usuario" u WHERE u.email = $1';
 const addUsuario = 'INSERT INTO "Usuario" (nombre, email, telefono, psw) VALUES ($1, $2, $3, $4)';
 const deleteUsuario = 'DELETE FROM "Usuario" WHERE id_usuario = $1';
 const updateUsuario = 'UPDATE "Usuario" SET nombre = $1, email = $2, telefono = $3 WHERE id_usuario = $4';
-const updatePasswordUsuario = 'UPDATE "Usuario" SET psw = $1 WHERE id_usuario = $2';
 
 module.exports = {
     getUsuarios,
@@ -13,5 +12,4 @@ module.exports = {
     addUsuario,
     deleteUsuario,
     updateUsuario,
-    updatePasswordUsuario,
 };

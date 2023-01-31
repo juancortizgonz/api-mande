@@ -3,6 +3,7 @@ const usuarioRoutes = require('./src/usuario/routes');
 const laborRoutes = require('./src/labor/routes');
 const tarifaRoutes = require('./src/tarifa/routes');
 const servicioRoutes = require('./src/servicio/routes');
+const trabajadorRoutes = require('./src/trabajador/routes');
 const cors = require('cors');
 
 const app = express();
@@ -16,6 +17,7 @@ app.get("/", (req, res) => {
 });
 
 app.use('/api/v1/usuarios', usuarioRoutes);
+app.use('/api/v1/trabajadores', trabajadorRoutes);
 app.use('/api/v1/labores', laborRoutes);
 app.use('/api/v1/tarifas', tarifaRoutes);
 app.use('/api/v1/servicios', servicioRoutes);

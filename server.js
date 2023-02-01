@@ -6,6 +6,7 @@ const servicioRoutes = require('./src/servicio/routes');
 const trabajadorRoutes = require('./src/trabajador/routes');
 const clienteRoutes = require('./src/cliente/routes');
 const paymentRoutes = require('./src/metodoPago/routes');
+const ofertaRoutes = require('./src/oferta/routes');
 const cors = require('cors');
 
 const app = express();
@@ -25,6 +26,7 @@ app.use('/api/v1/pagos', paymentRoutes);
 app.use('/api/v1/labores', laborRoutes);
 app.use('/api/v1/tarifas', tarifaRoutes);
 app.use('/api/v1/servicios', servicioRoutes);
+app.use('/api/v1/ofertas', ofertaRoutes);
 
 app.listen(port, () => {
     console.log(`App listening on port ${port}`)

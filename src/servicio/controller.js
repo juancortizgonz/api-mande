@@ -1,6 +1,7 @@
 const pool = require('../../db');
 const queries = require('./queries');
 
+
 const getServicios = (req, res) => {
     pool.query(queries.getServicios, (error, results) => {
         if (error) throw error;
@@ -18,11 +19,13 @@ const getServicioById = (req, res) => {
 };
 
 const addServicio = (req, res) => {
-    const { costo_servicio, calificacion_servicio, unidades_servicio, fecha_servicio, estado_servicio, id_oferta } = req.body;
+    const { costo, calificacion, fecha, pagada, id_oferta } = req.body;
 
-    pool.query(queries.addServicio, [costo_servicio, calificacion_servicio, unidades_servicio, fecha_servicio, estado_servicio, id_oferta], (error, results) => {
+    res.header("Access-Control-Allow-Origin", "*");
+
+    pool.query(queries.addServicio, [costo, calificacion, fecha, pagada, id_oferta], (error, results) => {
         if (error) throw error;
-        res.status(201).send("Nuevo servicio creada.");
+        res.status(201).send(`Nuevo servicio creada.`);
     });
 };
 
@@ -44,7 +47,7 @@ const deleteServicio = (req, res) => {
 
 const updateServicio = (req, res) => {
     const id_servicio = parseInt(req.params.id_servicio);
-    const { costo_servicio, calificacion_servicio, unidades_servicio, fecha_servicio, estado_servicio } = req.body;
+    const { costo, calificacion, fecha, pagada, id_oferta } = req.body;
 
     pool.query(queries.getServicioById, [id_servicio], (error, results) => {
         const notFoundServicio = !results.rows.length;
@@ -52,7 +55,7 @@ const updateServicio = (req, res) => {
             res.send("El servicio no existe en la BD.");
         }
 
-        pool.query(queries.updateServicio, [costo_servicio, calificacion_servicio, unidades_servicio, fecha_servicio, estado_servicio, id_servicio], (error, results) => {
+        pool.query(queries.updateServicio, [costo, calificacion, fecha, pagada, id_oferta], (error, results) => {
             if (error) throw error;
             res.status(200).send("Se han actualizado los datos del servicio.");
         });

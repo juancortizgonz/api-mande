@@ -1,6 +1,7 @@
 const pool = require('../../db');
 const queries = require('./queries');
 
+
 const getTarifas = (req, res) => {
     pool.query(queries.getTarifas, (error, results) => {
         if (error) throw error;
@@ -18,11 +19,13 @@ const getTarifaById = (req, res) => {
 };
 
 const addTarifa = (req, res) => {
-    const { tarifa, id_trabajador, id_labor } = req.body;
+    const { precio, id_trabajador, id_labor } = req.body;
 
-    pool.query(queries.addTarifa, [tarifa, id_trabajador, id_labor], (error, results) => {
+    res.header("Access-Control-Allow-Origin", "*");
+
+    pool.query(queries.addTarifa, [precio, id_trabajador, id_labor], (error, results) => {
         if (error) throw error;
-        res.status(201).send("Nueva tarifa creada.");
+        res.status(201).send(`Nueva tarifa creada.`);
     });
 };
 
@@ -44,7 +47,7 @@ const deleteTarifa = (req, res) => {
 
 const updateTarifa = (req, res) => {
     const id_tarifa = parseInt(req.params.id_tarifa);
-    const { tarifa } = req.body;
+    const { precio, id_trabajador, id_labor } = req.body;
 
     pool.query(queries.getTarifaById, [id_tarifa], (error, results) => {
         const notFoundTarifa = !results.rows.length;
@@ -52,7 +55,7 @@ const updateTarifa = (req, res) => {
             res.send("La tarifa no existe en la BD.");
         }
 
-        pool.query(queries.updateTarifa, [tarifa, id_tarifa], (error, results) => {
+        pool.query(queries.updateTarifa, [precio, id_trabajador, id_labor], (error, results) => {
             if (error) throw error;
             res.status(200).send("Se han actualizado los datos de la tarifa.");
         });

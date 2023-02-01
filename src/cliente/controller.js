@@ -44,9 +44,26 @@ const deleteCliente = (req, res) => {
     });
 };
 
+const displayClientes = (req, res) => {
+    pool.query(queries.displayClientes, (error, results) => {
+        if (error) throw error;
+        res.status(200).json(results.rows);
+    });
+};
+
+const getIdCliente = (req, res) => {
+    const { email } = req.body;
+    pool.query(queries.getIdCliente, [email], (error, results) => {
+        if (error) throw error;
+        res.status(200).json(results.rows);
+    });
+};
+
 module.exports = {
     getClientes,
     getClienteById,
     addCliente,
     deleteCliente,
+    displayClientes,
+    getIdCliente,
 };

@@ -52,10 +52,17 @@ const deleteTrabajador = (req, res) => {
         });
     });
 };
+const displayTrabajadores = (req, res) => {
+    pool.query(queries.displayTrabajadores, (error, results) => {
+        if (error) throw error;
+        res.status(200).json(results.rows);
+    });
+};
 
 module.exports = {
     getTrabajadores,
     getTrabajadorById,
     addTrabajador,
     deleteTrabajador,
+    displayTrabajadores,
 };

@@ -142,3 +142,29 @@ CREATE TABLE IF NOT EXISTS public."Metodo_Pago"
 )
 
 TABLESPACE pg_default;
+
+CREATE OR REPLACE VIEW public.display_clientes
+ AS
+ SELECT "Cliente".id_usuario,
+    "Usuario".nombre,
+    "Usuario".email,
+    "Usuario".telefono
+   FROM "Cliente"
+     JOIN "Usuario" ON "Usuario".id_usuario = "Cliente".id_usuario;
+     
+CREATE OR REPLACE VIEW public.display_trabajadores
+ AS
+ SELECT "Trabajador".id_usuario,
+    "Usuario".nombre,
+    "Usuario".email,
+    "Usuario".telefono
+   FROM "Trabajador"
+     JOIN "Usuario" ON "Usuario".id_usuario = "Trabajador".id_usuario;
+
+CREATE INDEX servicios_pagados ON "Servicio"(pagada) WHERE pagada=true;
+
+CREATE INDEX index_usuario_email ON "Usuario"(email);
+
+CREATE INDEX index_cliente_idusuario ON "Cliente"(id_usuario);
+
+CREATE INDEX index_trabajador_idusuario ON "Trabajador"(id_usuario);

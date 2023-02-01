@@ -1,0 +1,19 @@
+version: '3.1'
+
+services:
+
+  development:
+    image: postgres:latest
+    restart: always
+    container_name: mande_database
+    hostname: localhost
+    environment:
+      POSTGRES_DB: mande
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - /home/hp/DatabaseMande/api-mande/database/postgres-volume:/var/lib/postgresql/data
+      - ./sql/create_schema.sql:/docker-entrypoint-initdb.d/create_schema.sql
+      - ./sql/data.sql:/docker/entrypoint-initdb.d/data.sql
+    ports:
+      - "9091:5432"

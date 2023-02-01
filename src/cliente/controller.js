@@ -19,10 +19,10 @@ const getClienteById = (req, res) => {
 };
 
 const addCliente = (req, res) => {
-    const { recibo, lat_dir, lon_dir } = req.body;
+    const { recibo, lat_dir, lon_dir, id_usuario } = req.body;
 
     res.header("Access-Control-Allow-Origin", "*");
-    pool.query(queries.addCliente, [recibo, lat_dir, lon_dir], (error, results) => {
+    pool.query(queries.addCliente, [recibo, lat_dir, lon_dir, id_usuario], (error, results) => {
         if (error) throw error;
         res.status(201).send(`Nuevo cliente creado.`);
     });
